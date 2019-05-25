@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>文档标题</title>
+</head>
+<body style="text-align: center;padding-top: 50px">
+<iframe id="print-select-iframe" src="./print1.html" style="width: 800px;height: 600px" scrolling="no"></iframe>
+<script>
+    var selectIframe=window.frames["print-select-iframe"].contentWindow;
+    function loadScript(url, callback) {
+        callback = typeof callback === 'function' ? callback : function() {};
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        script.onreadystatechange = function() {
+            if(this.readyState == "loaded" || this.readyState == "complete"){
+                callback();
+            }
+        }
+        script.onload = callback;
+        selectIframe.document.body.appendChild(script);
+    }
+    window.frames["print-select-iframe"].onload = function(){
+        var style = document.createElement('link');
+        style.rel = 'stylesheet';
+        style.href = "http://202.112.137.42:8044/excel-select.css";
+        selectIframe.document.body.appendChild(script);
+        loadScript("https://cdn.staticfile.org/jquery/2.2.4/jquery.min.js",function () {
+            loadScript("http://202.112.137.42:8044/excel-select.js")
+        })
+    };
+    console.log(selectIframe.selectedCol,selectIframe.selectedRow)
+</script>
+</body>
+</html>
